@@ -32,7 +32,6 @@ public class CreateNewAccountController {
 	
 	public void create(ActionEvent event) throws SQLException, IOException {
 		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
 		String query = "INSERT INTO Customers (username, password) VALUES(?, ?)";
 		if(passwordField.getText().equals(confirmPasswrodField.getText()) && passwordField.getText().length() > 2) {
 			preparedStatement = connection.prepareStatement(query);
