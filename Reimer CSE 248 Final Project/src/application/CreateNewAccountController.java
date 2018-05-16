@@ -3,7 +3,6 @@ package application;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
@@ -32,11 +31,12 @@ public class CreateNewAccountController {
 	
 	public void create(ActionEvent event) throws SQLException, IOException {
 		PreparedStatement preparedStatement = null;
-		String query = "INSERT INTO Customers (username, password) VALUES(?, ?)";
+		String query = "INSERT INTO Customers (username, password, isLoggedIn) VALUES(?, ?, ?)";
 		if(passwordField.getText().equals(confirmPasswrodField.getText()) && passwordField.getText().length() > 2) {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, usernameField.getText());
 			preparedStatement.setString(2, passwordField.getText());
+			preparedStatement.setBoolean(3, true);
 			preparedStatement.execute();
 			Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
 			Scene scene = new Scene(root);

@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
+	
 	private LoginModel loginModel = new LoginModel();
 	@FXML
 	private Label messageLbl;
@@ -48,11 +49,11 @@ public class LoginController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		if (loginModel.isDBConnected()) {
-			messageLbl.setText("Connected");
-		} else {
-			messageLbl.setText("Not Connected");
-		}
+		
+	}
+	
+	public LoginModel getLoginModel() {
+		return loginModel;
 	}
 
 }

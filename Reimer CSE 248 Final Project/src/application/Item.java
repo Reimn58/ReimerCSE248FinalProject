@@ -1,15 +1,19 @@
 package application;
 
+import javafx.scene.control.Button;
+
 public class Item {
 
 	private String itemName;
 	private double itemPrice;
 	private int quantity;
+	private Button button;
 	
-	public Item(String itemName, double itemPrice, int quantity) {
+	public Item(String itemName, double itemPrice, int quantity, Button button) {
 		this.itemName = itemName;
 		this.itemPrice = itemPrice;
 		this.quantity = quantity;
+		this.button = button;
 	}
 
 	public String getItemName() {
@@ -34,5 +38,13 @@ public class Item {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public Button getButton() {
+		return button;
+	}
+
+	public void setButton(Button button) {
+		this.button = button;
 	}
 }
