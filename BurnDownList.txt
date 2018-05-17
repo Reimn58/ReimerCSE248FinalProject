@@ -1,0 +1,19 @@
+
+
+	Tasks:						Value:
+
+	Login						3 pts
+	Create New Account				4 pts	
+	Display Items					10 pts
+	Add Items to Cart				8 pts
+	Generate Invoice				15 pts
+	Return Items					10 pts
+	Donate Items					7 pts
+	Add Administrator Area				5 pts
+	Run Sales Report				8 pts
+	Run Donations Report				8 pts
+	Run Returns Report				8 pts
+	Administrator Add Item to Inventory		6 pts
+
+	Total:						90 pts
+	

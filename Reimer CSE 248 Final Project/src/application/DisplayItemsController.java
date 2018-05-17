@@ -18,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -40,14 +41,11 @@ public class DisplayItemsController implements Initializable {
 	@FXML
 	private TableColumn<Item, Button> purchaseItemColumn = new TableColumn<>();
 	
+	@FXML
+	private Label msgLabel = new Label();
+	
 	public void generateDisplay() throws SQLException {
-		itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-		itemPriceColumn.setCellValueFactory(new PropertyValueFactory<>("itemPrice"));
-		itemQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-		purchaseItemColumn.setCellValueFactory(new PropertyValueFactory<>("button"));
-		
 		itemTable.setItems(getItems());
-		itemTable.getColumns().addAll(itemNameColumn, itemPriceColumn, itemQuantityColumn, purchaseItemColumn);
 	}
 	
 	public ObservableList<Item> getItems() throws SQLException {
@@ -67,24 +65,79 @@ public class DisplayItemsController implements Initializable {
 				Button button = new Button("Add to cart");
 				
 				button.setOnAction(e -> {
-					PreparedStatement preparedStatementGetUser = null;
-					ResultSet resultSetGetUser = null;
-					String queryGetUser = "select * from customers where isLoggedIn = '1';";
-					try {
-						preparedStatementGetUser = new LoginModel().getConnection().prepareStatement(queryGetUser);
-						resultSetGetUser = preparedStatementGetUser.executeQuery();
-						int currentID = resultSetGetUser.getInt(1);
-						resultSetGetUser.close();
-						preparedStatementGetUser.close();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
 					
-					System.out.println(itemName);
+					if(quantity == 0) {
+						msgLabel.setText("Sorry, we are out of that item.");
+					} else {
+					
+						int currentID = new CurrentUser().getID();
+					
+						PreparedStatement preparedStatement2 = null;
+						String query2 = "update Inventory set quantity=? where itemName=?;";
+						try {
+							preparedStatement2 = connection.prepareStatement(query2);
+							preparedStatement2.setInt(1, quantity - 1);
+							preparedStatement2.setString(2, itemName);
+							preparedStatement2.execute();
+							preparedStatement2.close();
+						} catch (SQLException e3) {
+							e3.printStackTrace();
+						}
+					
+						PreparedStatement preparedStatement3 = null;
+					
+						String query3 = "select * from ItemsInCart where itemName=? AND userID=?";
+						try {
+							preparedStatement3 = connection.prepareStatement(query3);
+							preparedStatement3.setString(1, itemName);
+							preparedStatement3.setInt(2, currentID);
+							ResultSet resultSet2 = preparedStatement3.executeQuery();
+							if(resultSet2.next()) {
+								int currentQuantity = resultSet2.getInt(4);
+								preparedStatement3.close();
+								resultSet2.close();
+								
+								PreparedStatement preparedStatement4 = null;
+								String query4 = "update ItemsInCart set quantity=? where itemName=? AND userID=?;";
+								preparedStatement4 = connection.prepareStatement(query4);
+								preparedStatement4.setInt(1, currentQuantity + 1);
+								preparedStatement4.setString(2, itemName);
+								preparedStatement4.setInt(3, currentID);
+								preparedStatement4.execute();
+								
+								preparedStatement4.close();
+							} else {
+								PreparedStatement pSInsertCart = null;
+								ResultSet rsInsertCart = null;
+								String queryInsertCart = "INSERT INTO ItemsInCart (itemName, itemPrice, quantity, userID) VALUES (?,?,?,?)";
+								try {
+									pSInsertCart = connection.prepareStatement(queryInsertCart);
+									pSInsertCart.setString(1, itemName);
+									pSInsertCart.setDouble(2, itemPrice);
+									pSInsertCart.setInt(3, 1);
+									pSInsertCart.setInt(4, currentID);
+									pSInsertCart.execute();
+									pSInsertCart.close();
+								} catch (SQLException e2) {
+									
+									e2.printStackTrace();
+								}
+							}
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						} 
+						try {
+							generateDisplay();
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+					}
 				});
+			
 				
 				items.add(new Item(itemName, itemPrice, quantity, button));
 			}
+		
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -92,7 +145,22 @@ public class DisplayItemsController implements Initializable {
 			preparedStatement.close();
 			resultSet.close();
 		}
+		
 		return items;
+	}
+	
+	public void search(ActionEvent event) {
+		
+	}
+	
+	public void myCart(ActionEvent event) throws SQLException, IOException {
+		MyCartController myCart = new MyCartController();
+		myCart.generateDisplay();
+		Parent root = FXMLLoader.load(getClass().getResource("MyCart.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(scene);
+		stage.show();
 	}
 	
 	public void mainMenu(ActionEvent event) throws IOException {

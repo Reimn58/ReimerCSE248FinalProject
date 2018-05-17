@@ -8,12 +8,22 @@ public class Item {
 	private double itemPrice;
 	private int quantity;
 	private Button button;
+	private double totalPrice;
+	
+	public Item(String itemName, double itemPrice, int quantity) {
+		this.itemName = itemName;
+		this.itemPrice = itemPrice;
+		this.quantity = quantity;
+		this.button = null;
+		setTotalPrice();
+	}
 	
 	public Item(String itemName, double itemPrice, int quantity, Button button) {
 		this.itemName = itemName;
 		this.itemPrice = itemPrice;
 		this.quantity = quantity;
 		this.button = button;
+		setTotalPrice();
 	}
 
 	public String getItemName() {
@@ -46,5 +56,13 @@ public class Item {
 
 	public void setButton(Button button) {
 		this.button = button;
+	}
+	
+	public void setTotalPrice() {
+		this.totalPrice = this.itemPrice * this.quantity;
+	}
+	
+	public double getTotalPrice() {
+		return totalPrice;
 	}
 }

@@ -4,24 +4,24 @@ import java.util.Date;
 
 public class Donation {
 
-	private int accountID;
+	private int donatorID;
 	private String itemName;
 	private int quantity;
 	private Date date;
 	
-	public Donation(int accountID, String itemName, int quantity) {
-		this.accountID = accountID;
+	public Donation(int donatorID, String itemName, int quantity, Date date) {
+		this.donatorID = donatorID;
 		this.itemName = itemName;
 		this.quantity = quantity;
-		this.date = new Date();
+		this.date = date;
 	}
 	
-	public int getAccountID() {
-		return accountID;
+	public int getDonatorID() {
+		return donatorID;
 	}
 
-	public void setAccountID(int accountID) {
-		this.accountID = accountID;
+	public void setDonatorID(int donatorID) {
+		this.donatorID = donatorID;
 	}
 
 	public String getItemName() {

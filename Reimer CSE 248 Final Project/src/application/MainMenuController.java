@@ -19,21 +19,12 @@ public class MainMenuController implements Initializable {
 	
 	public void logout(ActionEvent event) throws IOException, SQLException {
 		
-		PreparedStatement preparedStatement = null;
 		PreparedStatement preparedStatement2 = null;
-		ResultSet resultSet = null;
-		String query = "select * from customers where isLoggedIn = '1';";
 		String query2 = "update customers set isLoggedIn = '0' where id=?;";
 		int currentID = 0;
 		try {
-			preparedStatement = new LoginModel().getConnection().prepareStatement(query);
-			resultSet = preparedStatement.executeQuery();
-			currentID = resultSet.getInt(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			currentID = new CurrentUser().getID();
 		} finally {
-			resultSet.close();
-			preparedStatement.close();
 			preparedStatement2 = new LoginModel().getConnection().prepareStatement(query2);
 			preparedStatement2.setInt(1, currentID);
 			preparedStatement2.execute();
@@ -45,6 +36,16 @@ public class MainMenuController implements Initializable {
 		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	public void displayMyCart(ActionEvent event) throws SQLException, IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("MyCart.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(scene);
+		stage.show();
+		MyCartController myCart = new MyCartController();
+		myCart.generateDisplay();
 	}
 	
 	public void displayItems(ActionEvent event) throws IOException, SQLException {
@@ -59,6 +60,44 @@ public class MainMenuController implements Initializable {
 	
 	public void donateItem(ActionEvent event) throws IOException, SQLException {
 		Parent root = FXMLLoader.load(getClass().getResource("DonateItem.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	public void checkOut(ActionEvent event) throws SQLException, IOException {
+		InvoiceController invoice = new InvoiceController();
+		invoice.generateDisplay();
+		Parent root = FXMLLoader.load(getClass().getResource("Invoice.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	public void salesReport(ActionEvent event) throws SQLException, IOException {
+		DonationHistoryController report = new DonationHistoryController();
+		report.generateDisplay();
+		Parent root = FXMLLoader.load(getClass().getResource("DonationHistory.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	public void adminArea(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("AdminPassword.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	public void returnItem(ActionEvent event) throws IOException, SQLException {
+		ReturnItemController ric = new ReturnItemController();
+		ric.generateDisplay();
+		Parent root = FXMLLoader.load(getClass().getResource("ReturnItem.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		stage.setScene(scene);

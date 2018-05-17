@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="431.0" prefWidth="569.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SalesReportController">
+   <children>
+      <Button layoutX="467.0" layoutY="65.0" mnemonicParsing="false" onAction="#adminArea" prefHeight="0.0" prefWidth="79.0" text="Admin Area" />
+      <Button layoutX="467.0" layoutY="30.0" mnemonicParsing="false" onAction="#mainMenu" prefHeight="25.0" prefWidth="79.0" text="Main Menu" />
+      <TableView fx:id="itemTable" layoutY="126.0" prefHeight="305.0" prefWidth="569.0">
+        <columns>
+          <TableColumn fx:id="customerIDColumn" prefWidth="95.0" text="Customer ID" />
+          <TableColumn fx:id="itemNameColumn" prefWidth="123.0" text="Item Name" />
+            <TableColumn fx:id="quantityColumn" prefWidth="106.0" text="Quantity" />
+            <TableColumn fx:id="totalPriceColumn" prefWidth="114.0" text="Total Price" />
+            <TableColumn fx:id="datePurchasedColumn" prefWidth="130.0" text="Date" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

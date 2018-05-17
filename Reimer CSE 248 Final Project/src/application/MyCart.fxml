@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="430.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MyCartController">
+   <children>
+      <TableView fx:id="itemTable" layoutY="92.0" prefHeight="338.0" prefWidth="598.0">
+        <columns>
+          <TableColumn fx:id="itemNameColumn" prefWidth="140.0" text="Item Name" />
+          <TableColumn fx:id="itemPriceColumn" prefWidth="154.0" text="Price" />
+            <TableColumn fx:id="itemQuantityColumn" prefWidth="123.0" text="Quantity" />
+            <TableColumn fx:id="removeFromCartColumn" prefWidth="180.0" />
+        </columns>
+      </TableView>
+      <Button layoutX="493.0" layoutY="21.0" mnemonicParsing="false" onAction="#mainMenu" text="Main Menu" />
+      <Button layoutX="493.0" layoutY="55.0" mnemonicParsing="false" onAction="#checkOut" prefHeight="25.0" prefWidth="77.0" text="Check Out" />
+   </children>
+</AnchorPane>

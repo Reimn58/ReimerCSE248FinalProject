@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="474.0" prefWidth="544.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DonationHistoryController">
+   <children>
+      <Button layoutX="445.0" layoutY="23.0" mnemonicParsing="false" onAction="#mainMenu" prefHeight="25.0" prefWidth="85.0" text="Main Menu" />
+      <TableView fx:id="itemTable" layoutY="94.0" prefHeight="380.0" prefWidth="544.0">
+        <columns>
+          <TableColumn fx:id="donatorIDColumn" prefWidth="123.0" text="DonatorID" />
+          <TableColumn fx:id="itemNameColumn" prefWidth="142.0" text="Donated Item" />
+            <TableColumn fx:id="itemQuantityColumn" prefWidth="132.0" text="Quantity Donated" />
+            <TableColumn fx:id="dateDonatedColumn" prefWidth="146.0" text="Date Donated" />
+        </columns>
+      </TableView>
+      <Button layoutX="445.0" layoutY="57.0" mnemonicParsing="false" onAction="#adminArea" prefHeight="25.0" prefWidth="85.0" text="Admin Area" />
+   </children>
+</AnchorPane>
